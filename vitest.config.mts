@@ -11,7 +11,6 @@ export default defineConfig({
   test: {
     root: './',
     globals: true,
-    setupFiles: ['./test/setup.ts'],
     coverage: {
       provider: 'v8',
       include: ['src/**'],
