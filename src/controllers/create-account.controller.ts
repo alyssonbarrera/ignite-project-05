@@ -3,11 +3,11 @@ import { PrismaService } from '@/prisma/prisma.service'
 import {
   Body,
   Post,
+  UsePipes,
   HttpCode,
   HttpStatus,
   Controller,
   ConflictException,
-  UsePipes,
 } from '@nestjs/common'
 
 import { z } from 'zod'
