@@ -56,12 +56,12 @@ describe('Edit question (E2E)', () => {
     const attachment1 = await attachmentFactory.makePrismaAttachment()
     const attachment2 = await attachmentFactory.makePrismaAttachment()
 
-    await questionAttachmentFactory.makePrismaAttachment({
+    await questionAttachmentFactory.makePrismaQuestionAttachment({
       questionId: question.id,
       attachmentId: attachment1.id,
     })
 
-    await questionAttachmentFactory.makePrismaAttachment({
+    await questionAttachmentFactory.makePrismaQuestionAttachment({
       questionId: question.id,
       attachmentId: attachment2.id,
     })
