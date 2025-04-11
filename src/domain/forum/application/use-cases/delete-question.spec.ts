@@ -1,5 +1,5 @@
 import { DeleteQuestionUseCase } from './delete-question'
-import { makeQuestion } from 'test/factories/make-question'
+import { makeQuestion } from '@test/factories/make-question'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { NotAllowedError } from '@/core/errors/not-allowed-error'
 import { makeQuestionAttachment } from '@test/factories/make-question-attachment'

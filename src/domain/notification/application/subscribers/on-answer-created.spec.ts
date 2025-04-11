@@ -10,7 +10,7 @@ import { InMemoryNotificationsRepository } from '@test/repositories/in-memory-no
 import { InMemoryAnswerAttachmentsRepository } from '@test/repositories/in-memory-answer-attachments-repository'
 import { InMemoryQuestionAttachmentsRepository } from '@test/repositories/in-memory-question-attachments-repository'
 
-import { waitFor } from 'test/utils/wait-for'
+import { waitFor } from '@test/utils/wait-for'
 import { MockInstance } from 'vitest'
 
 let inMemoryQuestionsRepository: InMemoryQuestionsRepository
