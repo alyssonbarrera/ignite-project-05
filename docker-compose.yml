@@ -11,3 +11,10 @@ services:
       PGDATA: /data/postgres
     volumes:
       - ./data/postgres:/data/postgres
+  cache:
+    container_name: ignite-project-05-cache
+    image: redis
+    ports:
+      - 6379:6379
+    volumes:
+      - ./data/redis:/data
