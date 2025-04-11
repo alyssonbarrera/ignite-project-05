@@ -1,5 +1,8 @@
 @baseUrl = http://localhost:3333
 @authToken = {{authenticate.response.body.access_token}}
+@questionId = {{fetch_recent_questions.response.body.questions[0].id}}
+@answerQuestionId = {{fetch_question_answers.response.body.answers[0].id}}
+@questionSlug = {{fetch_recent_questions.response.body.questions[0].slug}}
 
 # @name create_account
 POST {{baseUrl}}/accounts
@@ -30,8 +33,8 @@ Content-Type: application/json
 Authorization: Bearer {{authToken}}
 
 {
-  "title": "Nova pergunta 3",
-  "content": "Conteúdo da pergunta 3",
+  "title": "Nova pergunta",
+  "content": "Conteúdo da pergunta",
   "attachments": []
 }
 
@@ -40,4 +43,124 @@ Authorization: Bearer {{authToken}}
 # @name fetch_recent_questions
 GET {{baseUrl}}/questions?page=1
 Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+###
+
+# @name get_question_by_slug
+GET {{baseUrl}}/questions/{{questionSlug}}
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+###
+
+# @name edit_question
+PUT {{baseUrl}}/questions/{{questionId}}
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "title": "Pergunta atualizada",
+  "content": "Conteúdo atualizado",
+  "attachments": []
+}
+
+###
+
+# @name delete_question
+DELETE {{baseUrl}}/questions/{{questionId}}
+Authorization: Bearer {{authToken}}
+
+###
+
+# @name comment_on_question
+POST {{baseUrl}}/questions/{{questionId}}/comments
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "content": "Comentário na pergunta"
+}
+
+###
+
+# @name fetch_question_comments
+GET {{baseUrl}}/questions/{{questionId}}/comments?page=1
+Authorization: Bearer {{authToken}}
+
+###
+
+# @name delete_question_comment
+DELETE {{baseUrl}}/questions/comments/comment-id
+Authorization: Bearer {{authToken}}
+
+###
+
+# @name answer_question
+POST {{baseUrl}}/questions/{{questionId}}/answers
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "content": "Resposta à pergunta",
+  "attachments": []
+}
+
+###
+
+# @name edit_answer
+PUT {{baseUrl}}/answers/{{answerQuestionId}}
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "content": "Resposta atualizada",
+  "attachments": []
+}
+
+###
+
+# @name delete_answer
+DELETE {{baseUrl}}/answers/{{answerQuestionId}}
+Authorization: Bearer {{authToken}}
+
+###
+
+# @name fetch_question_answers
+GET {{baseUrl}}/questions/{{questionId}}/answers?page=1
+Authorization: Bearer {{authToken}}
+
+###
+
+# @name choose_question_best_answer
+PATCH {{baseUrl}}/answers/{{answerQuestionId}}/choose-as-best
+Authorization: Bearer {{authToken}}
+
+###
+
+# @name comment_on_answer
+POST {{baseUrl}}/answers/{{answerQuestionId}}/comments
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "content": "Comentário na resposta"
+}
+
+###
+
+# @name fetch_answer_comments
+GET {{baseUrl}}/answers/{{answerQuestionId}}/comments?page=1
+Authorization: Bearer {{authToken}}
+
+###
+
+# @name delete_answer_comment
+DELETE {{baseUrl}}/answers/comments/comment-id
+Authorization: Bearer {{authToken}}
+
+###
+
+# @name read_notifications
+PATCH {{baseUrl}}/notifications/:notificationId/read
 Authorization: Bearer {{authToken}}

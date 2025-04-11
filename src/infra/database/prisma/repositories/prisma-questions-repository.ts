@@ -1,13 +1,14 @@
 import { Injectable } from '@nestjs/common'
 import { PrismaService } from '../prisma.service'
 
+import { DomainEvents } from '@/core/events/domain-events'
 import { Question } from '@/domain/forum/enterprise/entities/question'
 import { PaginationParams } from '@/core/repositories/pagination-params'
 import { PrismaQuestionMapper } from '../mappers/prisma-question-mapper'
-import { QuestionsRepository } from '@/domain/forum/application/repositories/questions-repository'
-import { QuestionAttachmentsRepository } from '@/domain/forum/application/repositories/question-attachments-repository'
-import { QuestionDetails } from '@/domain/forum/enterprise/entities/value-objects/question-details'
 import { PrismaQuestionDetailsMapper } from '../mappers/prisma-question-details-mapper'
+import { QuestionsRepository } from '@/domain/forum/application/repositories/questions-repository'
+import { QuestionDetails } from '@/domain/forum/enterprise/entities/value-objects/question-details'
+import { QuestionAttachmentsRepository } from '@/domain/forum/application/repositories/question-attachments-repository'
 
 @Injectable()
 export class PrismaQuestionsRepository implements QuestionsRepository {
@@ -40,6 +41,8 @@ export class PrismaQuestionsRepository implements QuestionsRepository {
     await this.questionAttachmentsRepository.createMany(
       question.attachments.getItems(),
     )
+
+    DomainEvents.dispatchEventsForAggregate(question.id)
   }
 
   async save(question: Question): Promise<void> {
@@ -59,6 +62,8 @@ export class PrismaQuestionsRepository implements QuestionsRepository {
         question.attachments.getRemovedItems(),
       ),
     ])
+
+    DomainEvents.dispatchEventsForAggregate(question.id)
   }
 
   async findBySlug(slug: string): Promise<Question | null> {
